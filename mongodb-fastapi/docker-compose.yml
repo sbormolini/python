@@ -1,0 +1,51 @@
+version: "3.9"
+
+
+services:
+
+  fastapi:
+    build: .
+    container_name: fastapi
+    ports:
+      - "5000:5000"
+    environment:
+      APP_ENV: "dev"
+      APP_DEBUG: "False"
+      APP_PORT: 5000
+      #MONGODB_DATABASE: flaskdb
+      #MONGODB_USERNAME: flaskuser
+      #MONGODB_PASSWORD: your_mongodb_password
+      MONGODB_HOSTNAME: mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - frontend
+      - backend
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    #environment:
+    #  MONGO_INITDB_ROOT_USERNAME: mongodbuser
+    #  MONGO_INITDB_ROOT_PASSWORD: your_mongodb_root_password
+    #  MONGO_INITDB_DATABASE: flaskdb
+    #  MONGODB_DATA_DIR: /data/db
+    #  MONDODB_LOG_DIR: /dev/null
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - backend
+
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+
+volumes:
+  mongodbdata:
+    driver: local
