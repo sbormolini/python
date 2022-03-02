@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 requests = "*"
+azure-storage-blob = "*"
 
 [dev-packages]
 ipykernel = "*"
