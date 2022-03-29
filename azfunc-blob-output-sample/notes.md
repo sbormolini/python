@@ -1,0 +1,1 @@
+az storage account show-connection-string --resource-group rg-bos-pythondemo-chn-dev02 --name sapythondemochndev02 --query connectionString --output tsv
